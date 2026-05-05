@@ -1,0 +1,38 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "vitest", "unicorn", "oxc"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "perf": "error"
+  },
+  "rules": {
+    "vitest/require-mock-type-parameters": "off",
+    "vitest/valid-title": "off",
+    "typescript/no-explicit-any": "warn",
+    "typescript/ban-ts-comment": "off",
+    "no-bitwise": "off"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.ts", "**/*.spec.ts"],
+      "rules": {
+        "typescript/no-explicit-any": "off",
+        "no-unused-vars": "off"
+      }
+    }
+  ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2024": true,
+    "vitest/globals": true
+  },
+  "ignorePatterns": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/.turbo/**",
+    "**/coverage/**",
+    "**/.yarn/**"
+  ]
+}
