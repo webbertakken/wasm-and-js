@@ -8,14 +8,39 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "dev": "node scripts/ensure-husky.mjs && turbo run dev",
+    "test": "node scripts/ensure-husky.mjs && vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
+    "lint": "yarn oxlint --deny-warnings --report-unused-disable-directives",
+    "format": "oxfmt --write",
+    "format:check": "oxfmt --check",
+    "typecheck": "tsgo --noEmit",
+    "typecheck:tsc": "tsc --noEmit",
+    "setup:hooks": "node scripts/ensure-husky.mjs",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.@(ts|tsx|mts|js|jsx|mjs|cjs)": [
+      "oxlint --fix --quiet",
+      "oxfmt --write"
+    ],
+    "*.@(json|jsonc|json5|md|mdx|yaml|yml|css|scss|sass|html|toml)": "oxfmt --write",
+    ".github/workflows/*.@(yml|yaml)": "actionlint"
   },
   "devDependencies": {
-    "eslint": "^8.48.0",
-    "prettier": "^3.0.3",
-    "tsconfig": "*",
-    "turbo": "latest"
+    "@types/node": "^25.6.0",
+    "@typescript/native-preview": "^7.0.0-dev.20260505.1",
+    "@vitest/coverage-istanbul": "^4.1.5",
+    "eslint": "^10.3.0",
+    "eslint-plugin-unicorn": "^64.0.0",
+    "husky": "9",
+    "lint-staged": "^16.4.0",
+    "oxfmt": "^0.48.0",
+    "oxlint": "^1.63.0",
+    "turbo": "latest",
+    "typescript": "^6.0.3",
+    "vite": "^7",
+    "vitest": "^4"
   }
 }
